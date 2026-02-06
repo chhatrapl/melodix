@@ -1,6 +1,10 @@
 import { useState } from "react";
+import axios from 'axios';
+import {useNavigate} from "react-router-dom";
 
 function SignUp() {
+
+    const navigate = useNavigate();
 
      const  [email, setEmail] = useState('')
      const  [password, setPassword] = useState('')
@@ -22,7 +26,23 @@ function SignUp() {
             <p className="text-zinc-400 mt-2">Stream your rhythm, anywhere.</p>
         </div>
 
-        <form className="space-y-5 mt-10">
+        <form className="space-y-5 mt-10"
+          onSubmit={async (e)=>{
+            e.preventDefault();
+            try {
+                await axios.post("http://localhost:3000/api/v1/auth/signup",
+                    {
+                       email,
+                       password,
+                    }
+                );
+                navigate('/')
+            } catch (err) {
+                console.error(err.response?.data || err.message);
+            }
+          }}
+        
+        >
         
 
             <div>
