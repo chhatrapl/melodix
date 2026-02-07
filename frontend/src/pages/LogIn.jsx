@@ -3,7 +3,7 @@ import axios from 'axios';
 import {useNavigate} from "react-router-dom";
 import logo from '../assets/logo.jpg';
 
-function SignUp() {
+function LogIn() {
 
     const navigate = useNavigate();
 
@@ -15,7 +15,7 @@ function SignUp() {
   return (
       
 
-   <div>
+   <div className="bg-black">
     
     <div className="w-full max-w-100 min-h-screen p-8 flex flex-col justify-between">
         
@@ -23,9 +23,9 @@ function SignUp() {
             <div className="inline-flex items-center justify-center w-16 h-16 bg-indigo-600 rounded-full mb-4 shadow-lg shadow-indigo-500/20">
                 <img 
                 className="rounded-4xl"
-                src={logo} alt="" />
+                src={logo} alt="logo" />
             </div>
-            <h1 className="text-3xl font-bold tracking-tight">Join Melodix</h1>
+            <h1 className="text-3xl font-bold tracking-tight"> Melodix</h1>
             <p className="text-zinc-400 mt-2">Stream your rhythm, anywhere.</p>
         </div>
 
@@ -33,7 +33,7 @@ function SignUp() {
           onSubmit={async (e)=>{
             e.preventDefault();
             try {
-                await axios.post("http://localhost:3000/api/v1/auth/signup",
+                await axios.post("http://localhost:3000/api/v1/auth/login",
                     {
                        email,
                        password,
@@ -61,7 +61,7 @@ function SignUp() {
             </div>
 
             <div>
-                <label className="block text-xs font-medium uppercase tracking-wider text-zinc-500 mb-1 ml-1"> Set Password</label>
+                <label className="block text-xs font-medium uppercase tracking-wider text-zinc-500 mb-1 ml-1"> Password</label>
                 <input type={showPassword? "text":"password"} placeholder="••••••••"  name="password"
                    className="w-full bg-zinc-900 border border-zinc-800 text-white rounded-2xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all" 
                    onChange={function(elem){
@@ -72,7 +72,7 @@ function SignUp() {
                    />
                     <button
                          type="button"
-                      className=" ml-75 text-zinc-400"
+                      className=" ml-75 text-zinc-400 cursor-pointer"
                      onClick={() => setShowPassword(!showPassword)}
                     >
                       {showPassword ? "👁️" : "🙈"}
@@ -82,13 +82,13 @@ function SignUp() {
 
             <button type="submit" 
                className="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-4 rounded-2xl mt-4 shadow-lg shadow-indigo-600/30 active:scale-[0.98] transition-transform cursor-pointer">
-                SignUp
+                LogIn
             </button>
         </form>
 
         <div className="mt-10">
                      <p className="text-center text-zinc-500 text-sm mt-8">
-                Already have an account? <a href="#" className="text-indigo-400 font-semibold hover:underline">Log in</a>
+                Dont have an account? <a href="#" className="text-indigo-400 font-semibold hover:underline">Sign Up</a>
             </p>
         </div>
 
@@ -99,4 +99,4 @@ function SignUp() {
   )
 }
 
-export default SignUp
+export default LogIn
