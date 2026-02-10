@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from 'axios';
-import {useNavigate} from "react-router-dom";
+import {Link,Outlet,useNavigate} from "react-router-dom";
 import logo from '../assets/logo.jpg';
 
 function LogIn() {
@@ -17,15 +17,15 @@ function LogIn() {
 
    <div className="bg-black">
     
-    <div className="w-full max-w-100 min-h-screen p-8 flex flex-col justify-between">
+    <div className="w-full max-w-100 min-h-screen p-8 flex flex-col justify-start">
         
         <div className="mt-8 text-center">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-indigo-600 rounded-full mb-4 shadow-lg shadow-indigo-500/20">
-                <img 
-                className="rounded-4xl"
-                src={logo} alt="logo" />
-            </div>
-            <h1 className="text-3xl font-bold tracking-tight"> Melodix</h1>
+             <div className="inline-flex items-center justify-center w-30 h-30 bg-indigo-600 rounded-full mb-4 shadow-lg shadow-indigo-500/20">
+              <img 
+              className="rounded-full"
+              src={logo} alt="" />
+             </div>
+            <h1 className="text-3xl text-white font-bold tracking-tight"> Melodix</h1>
             <p className="text-zinc-400 mt-2">Stream your rhythm, anywhere.</p>
         </div>
 
@@ -88,7 +88,8 @@ function LogIn() {
 
         <div className="mt-10">
                      <p className="text-center text-zinc-500 text-sm mt-8">
-                Dont have an account? <a href="#" className="text-indigo-400 font-semibold hover:underline">Sign Up</a>
+                Dont have an account? <Link  className="text-indigo-400 font-semibold hover:underline" to={"/signup"}>signup</Link>
+                <Outlet />
             </p>
         </div>
 
