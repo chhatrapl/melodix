@@ -30,7 +30,7 @@ export const songUpload = async (req, res) => {
         
         const artistId = ArtistDoc._id;
  
-       const existingSong = await Song.findOne({title,artist});
+       const existingSong = await Song.findOne({title,artistId});
  
        if(existingSong){
          return res.status(400).json({message:"song alreday uploaded"});
@@ -41,7 +41,7 @@ export const songUpload = async (req, res) => {
       title:title,
       artist:artistId,
       songUrl:songUrl,
-      coverimage:imageUrl
+      coverImage:imageUrl
     })
 
   
@@ -54,3 +54,4 @@ export const songUpload = async (req, res) => {
     return res.status(500).json({success:false, message:"somthing went wrong!"})
      }     
 };
+
