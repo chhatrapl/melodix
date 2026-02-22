@@ -1,5 +1,5 @@
 import express from "express";
-import { songUpload } from "../controllers/songControllers.js";
+import { deleteSong, songUpload } from "../controllers/songControllers.js";
 import upload from "../middlewares/cloudinary.js"
 
 const router = express.Router();
@@ -10,6 +10,8 @@ router.post('/songUpload', upload.fields([
     {name:'coverImage', maxCount:1}
 ]) ,songUpload);
 
+
+router.delete('/deletesong/:id', deleteSong);
 
 
 export default router;

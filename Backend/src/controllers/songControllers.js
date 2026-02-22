@@ -1,5 +1,6 @@
 import Song from "../model/songModel.js";
 import Artist from "../model/artistModel.js";
+import { v2 as cloudinary } from 'cloudinary';
 
 
 
@@ -55,3 +56,43 @@ export const songUpload = async (req, res) => {
      }     
 };
 
+
+export const deleteSong = async (req, res) =>{
+
+  try {
+    
+   const {id} =req.params;
+
+
+
+   const song =  await Song.findById(id);
+
+   if(!song){
+    return res.status(404)
+              .json({message:"song not found!"})
+   }
+
+   console.log('song:', song)
+
+
+   const songPublicId = song.songUrl.split('/').slice(-2).join('/').split('.')[0];
+   const coverImagePublicId = song.coverImage.split('/').slice(-2).join('/').split('.')[0];
+
+  console.log(`songPublicId:${songPublicId}, coverimgPublicId:${coverImagePublicId}`);
+
+  await cloudinary.uploader.destroy(songPublicId,{resource_type:"video"});
+  await cloudinary.uploader.destroy(coverImagePublicId);
+
+
+  const deletedSong = await Song.findByIdAndDelete(id);
+
+return res.status(200)
+          .json({success:true, message:"song deleted successfully"});
+
+
+  } catch (error) {
+    console.log(error.message);
+    return res.status(500)
+              .json({success:false, message:"somthing went wrong! song not deleted"})
+  }
+};

@@ -17,7 +17,7 @@ app.use('/api/v1/auth',authRouter);
 
 
 //songroutes
-app.use('/api/v1/upload',songRouter);
+app.use('/api/v1/song',songRouter);
 
 
 //artist routes
