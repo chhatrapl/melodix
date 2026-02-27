@@ -5,22 +5,24 @@ import fs from "fs";
 
 
 
-const cleanUpFiles = (files) => {
-  if(files.image) fs.unlinkSync(files.image[0].path);
+const cleanUpFiles = (file) => {
+  if(file && file.path) fs.unlinkSync(file.path);
 };
 
 export const createArtist = async (req, res)=>{
 
    try {
      const {title} = req.body;
-     const files = req.files;
+     const file = req.file;
      console.log('title:',title)
 
        
 
  
       if(!title || !req.file?.path){
-        if(files) cleanUpFiles(files)
+        if(file){
+            cleanUpFiles(file)
+        }
           return res.status(400).json({message:"all fields are required!"})
         };
  
@@ -30,7 +32,9 @@ export const createArtist = async (req, res)=>{
         const isArtistExist = await Artist.findOne({title});
  
         if(isArtistExist){
-            if(files) cleanUpFiles(files)
+            if(file){
+                cleanUpFiles(file)
+            }
          return res.status(400).json({message:"artist already existed!"});
          }
  
@@ -47,8 +51,11 @@ export const createArtist = async (req, res)=>{
                image:imageRes.secure_url,
                imagePublicId:imageRes.public_id
            });
-       
-           if(files) cleanUpFiles(files);
+        console.log("artist created.");
+        console.log("files:-", file);
+           if(file){
+            cleanUpFiles(file)
+           }
 
        return res.status(200).json({success:true, message:"artist created successfull"})
  
