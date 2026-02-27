@@ -14,7 +14,15 @@ const songSchema = new mongoose.Schema({
       type:String,
       required:true
   },
+  songPublicId:{
+    type:String,
+    required:true
+  },
   coverImage:{
+    type:String,
+    required:true
+  },
+  coverImagePublicId:{
     type:String,
     required:true
   }

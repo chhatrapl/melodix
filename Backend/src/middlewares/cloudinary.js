@@ -1,5 +1,4 @@
 import { v2 as cloudinary } from 'cloudinary';
-import { CloudinaryStorage } from 'multer-storage-cloudinary';
 import multer from 'multer';
 import dotenv from 'dotenv';
 
@@ -13,14 +12,15 @@ cloudinary.config({
 });
 
 
-const storage =  new CloudinaryStorage({
-  cloudinary: cloudinary,
-  params: {
-    folder: 'my_music_app', 
-    resource_type: 'auto',   
+const storage =  new multer.diskStorage({
+  destination: function(req, file, cb){
+    cb (null, './src/public/temp')
   },
+  filename: function (req, file, cb){
+    cb(null,file.originalname);
+  }
 });
 
 const upload = multer({ storage: storage });
 
-export default upload;
+export {upload,cloudinary}

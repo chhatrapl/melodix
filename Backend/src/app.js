@@ -10,7 +10,7 @@ const app = express();
 
 app.use(corse());
 app.use(express.json());
-app.use(express.urlencoded());
+app.use(express.urlencoded({extended:true}));
 
 //user routes
 app.use('/api/v1/auth',authRouter);

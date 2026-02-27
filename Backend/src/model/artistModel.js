@@ -8,7 +8,12 @@ const artistSchema = new mongoose.Schema({
         unique:true
     },
     image:{
-        type:String
+        type:String,
+        required:true
+    },
+    imagePublicId:{
+        type:String,
+        required:true
     }
 },
 {timestamps:true})
