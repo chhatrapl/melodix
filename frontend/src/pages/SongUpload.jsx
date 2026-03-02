@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Header from './Header.jsx'
 import Footer from './Footer.jsx'
+import axios from 'axios';
 
 function SongUpload() {
 
@@ -18,34 +19,75 @@ function SongUpload() {
     <div className='w-full h-screen'>
     <Header />
    <div className='bg-black h-screen flex items-center justify-center'>
-   <form action="" className='space-y-5 mt-10'>
+   <form action="" className='space-y-5 mt-10'
+   onSubmit={async (e)=>{
+    e.preventDefault();
+    const formData = new FormData();
+
+    formData.append('title',title);
+    formData.append('artist',artist);
+    formData.append('songUrl',songUrl);
+    formData.append('coverImage',coverImage);
+      
+
+    try {
+      const data = await axios.post('http://localhost:3000/api/v1/song/songUpload',formData )
+      console.log("song uploaded");
+    } catch (error) {
+       console.error(error.response?.data || error.message);
+    }
+        
+
+   }}
+   >
 
                      
      <div>
                 <label className="block text-xs font-medium uppercase tracking-wider text-zinc-500 mb-1 ml-1">Title</label>
                 <input type="text" placeholder="Enter Song Title" name="title"
-                    className="w-full bg-zinc-900 text-white border border-zinc-800 rounded-2xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"  />
+                    className="w-full bg-zinc-900 text-white border border-zinc-800 rounded-2xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all" 
+                    onChange={function(elem){
+                         const tempT = elem.target.value;
+                          setTitle(tempT);
+                     }}
+                    />
            
        </div>
 
      <div>
                 <label className="block text-xs font-medium uppercase tracking-wider text-zinc-500 mb-1 ml-1">Artist</label>
                 <input type="text" placeholder="Enter Artist Name" name="artist"
-                    className="w-full bg-zinc-900 text-white border border-zinc-800 rounded-2xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"  />
+                    className="w-full bg-zinc-900 text-white border border-zinc-800 rounded-2xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all" 
+                    onChange={function(elem){
+                      const tempA = elem.target.value;
+                      setAtrits(tempA);
+                    }}
+                    />
            
        </div>
 
      <div>
                 <label className="block text-xs font-medium uppercase tracking-wider text-zinc-500 mb-1 ml-1">songUrl</label>
                 <input type="file" placeholder="" name="songUrl"
-                    className="w-full bg-zinc-900 text-white border border-zinc-800 rounded-2xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"  />
+                    className="w-full bg-zinc-900 text-white border border-zinc-800 rounded-2xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all" 
+                    onChange={function(elem){
+                      console.log(elem)
+                     const tempS = elem.target.files[0];
+                     setSongUrl(tempS)
+                    }}
+                    />
            
        </div>
 
      <div>
                 <label className="block text-xs font-medium uppercase tracking-wider text-zinc-500 mb-1 ml-1">coverImage</label>
                 <input type="file" placeholder="" name="coverImage"
-                    className="w-full bg-zinc-900 text-white border border-zinc-800 rounded-2xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"  />
+                    className="w-full bg-zinc-900 text-white border border-zinc-800 rounded-2xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"  
+                    onChange={function(elem){
+                      const tempC = elem.target.files[0];
+                      setCoverImage(tempC)
+                    }}
+                    />
            
        </div>
 
