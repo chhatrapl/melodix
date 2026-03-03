@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import Header from './Header.jsx'
 import Footer from './Footer.jsx'
 import axios from 'axios';
+import toast from 'react-hot-toast';
+
 
 function SongUpload() {
 
@@ -9,14 +11,35 @@ function SongUpload() {
   const [artist, setAtrits]=useState('');
   const [coverImage, setCoverImage]=useState('');
   const [songUrl, setSongUrl]=useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
 
 
 
   return (
 
+            
+
 
     <div className='w-full h-screen'>
+
+
+   {isLoading && (
+  <div className="fixed inset-0 z-100 flex flex-col items-center justify-center bg-black/60 backdrop-blur-sm">
+    {/* Spinner */}
+    <div className="w-16 h-16 border-4 border-t-blue-500 border-white/30 rounded-full animate-spin"></div>
+    
+    {/* Message */}
+    <h2 className="text-white mt-4 text-xl font-semibold">Uploading Your Song...</h2>
+    <p className="text-gray-300 text-sm">Please don't refresh the page</p>
+  </div>
+)}
+    
+
+
+
+
+
     <Header />
    <div className='bg-black h-screen flex items-center justify-center'>
    <form action="" className='space-y-5 mt-10'
@@ -28,13 +51,19 @@ function SongUpload() {
     formData.append('artist',artist);
     formData.append('songUrl',songUrl);
     formData.append('coverImage',coverImage);
+
       
 
     try {
+      setIsLoading(true)
       const data = await axios.post('http://localhost:3000/api/v1/song/songUpload',formData )
       console.log("song uploaded");
     } catch (error) {
+      const message = error.response?.data?.message || "somthing went wrong!";
+      toast.error(message);
        console.error(error.response?.data || error.message);
+    }finally{
+        setIsLoading(false)
     }
         
 
