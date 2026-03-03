@@ -57,6 +57,7 @@ function SongUpload() {
     try {
       setIsLoading(true)
       const data = await axios.post('http://localhost:3000/api/v1/song/songUpload',formData )
+      toast.success("song uploaded✔")
       console.log("song uploaded");
     } catch (error) {
       const message = error.response?.data?.message || "somthing went wrong!";
