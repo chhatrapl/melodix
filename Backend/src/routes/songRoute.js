@@ -1,5 +1,5 @@
 import express from "express";
-import { deleteSong, songUpload } from "../controllers/songControllers.js";
+import { deleteSong, songUpload, getAllSongs } from "../controllers/songControllers.js";
 import { upload } from "../middlewares/cloudinary.js";
 
 
@@ -13,6 +13,8 @@ router.post('/songUpload', upload.fields([
 
 
 router.delete('/deletesong/:id', deleteSong);
+
+router.get('/allSongs', getAllSongs);
 
 
 export default router;

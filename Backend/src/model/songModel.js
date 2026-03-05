@@ -1,4 +1,5 @@
 import mongoose from "mongoose"
+import mongoosePaginate from 'mongoose-paginate-v2';
 
 const songSchema = new mongoose.Schema({
    title:{
@@ -29,6 +30,7 @@ const songSchema = new mongoose.Schema({
 
 },{timestamps:true});
 
+songSchema.plugin(mongoosePaginate);
 
 const Song = mongoose.model("Song", songSchema);
 

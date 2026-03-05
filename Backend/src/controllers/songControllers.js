@@ -132,3 +132,28 @@ return res.status(200)
               .json({success:false, message:"somthing went wrong! song not deleted"})
   }
 };
+
+
+export const getAllSongs = async (req, res)=>{
+try {
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 10;
+
+
+  const options = {
+    page : page,
+    limit :limit,
+    sort:{createdAt:-1}
+  }
+
+
+  const result = await Song.paginate({},options);
+
+
+     console.log('data:-',result);
+    return res.status(200).json({success:true, message:"all song get", data:result})
+} catch (error) {
+  console.error(error.message);
+  return res.json(500).json({sucess:false, message:"somting went wrong!"})
+}
+};
