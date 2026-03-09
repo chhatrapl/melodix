@@ -1,9 +1,9 @@
 import LogIn from './pages/LogIn'
-import MusicPlaying from './pages/MusicPlaying'
 import NotFound from './pages/NotFound'
 import SignUp from './pages/SignUp'
 import {Routes, Route} from 'react-router-dom'
 import SongUpload from './pages/SongUpload'
+import HomePage from './pages/HomePage'
 
 function App() {
   return (
@@ -11,7 +11,7 @@ function App() {
    <Routes>
     <Route path='/signup' element={<SignUp />} /> 
     <Route path='/login' element={<LogIn />} /> 
-    <Route path='/' element={<MusicPlaying />} /> 
+    <Route path='/' element={<HomePage />} /> 
     <Route path='*' element={<NotFound />} />
     <Route path='/songupload' element={<SongUpload />} />
    </Routes>
