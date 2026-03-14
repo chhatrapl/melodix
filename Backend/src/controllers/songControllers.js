@@ -157,3 +157,26 @@ try {
   return res.json(500).json({sucess:false, message:"somting went wrong!"})
 }
 };
+
+
+export const playSong = async (req, res)=>{
+  try {
+    const songId = req.params.id;
+   
+     if(!songId){
+      return res.status(400).json({ message:"unauthorized request"})
+     };
+
+     const song = await Song.findById(songId);
+
+     if(!song){
+      return res.status(404).json({success:false, message:"Song not existed"});
+     }
+     console.log("song mil gya")
+     return res.status(200).json({success:true, message:"song get",data:song})
+
+  } catch (error) {
+    console.error(error.message);
+  return res.json(500).json({sucess:false, message:"somting went wrong!"})
+  }
+};
