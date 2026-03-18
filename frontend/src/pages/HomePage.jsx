@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../component/Header.jsx'
 import Footer from '../component/Footer.jsx';
-import Card from '../component/Card.jsx';
 import axios from 'axios';
+import Poster from '../component/Poster.jsx';
 
 function HomePage() {
 
@@ -55,7 +55,8 @@ function HomePage() {
       <Header showSearchbar={true} />
        
       <div className=' hero-section mt-10 flex items-center flex-col' >
-
+   
+     <Poster />
           
 
       </div>
