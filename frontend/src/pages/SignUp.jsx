@@ -15,9 +15,9 @@ function SignUp() {
   return (
       
 
-   <div>
+   
     
-    <div className="w-full max-w-100 min-h-screen p-8 flex flex-col justify-start"> 
+    <div className="w-full  min-h-screen p-8 flex flex-col justify-start bg-black"> 
         
         <div className="mt-8 text-center">
             <div className="inline-flex items-center justify-center w-30 h-30 bg-indigo-600 rounded-full mb-4 shadow-lg shadow-indigo-500/20">
@@ -96,7 +96,7 @@ function SignUp() {
     </div>
 
 
-    </div>
+
   )
 }
 

@@ -44,16 +44,23 @@ function HomePage() {
 
 
   return (
-    <div className='flex flex-col bg-black '>
-      <Header />
+    //<div className=' items-center grid grid-cols-2 gap-5 pt-10 pl-7'>
 
-     <div className=' items-center grid grid-cols-2 gap-5 pt-10 pl-7'>
+     //  {songs.map((song)=>(
+   //     <Card songData={song} key={song._id}  />
+    //   ))};
 
-       {songs.map((song)=>(
-        <Card songData={song} key={song._id}  />
-       ))};
+   //  </div>
+    <div className='flex items-center flex-col  min-h-screen  bg-[rgba(26,26,26,1)]'>
+      <Header showSearchbar={true} />
+       
+      <div className=' hero-section mt-10 flex items-center flex-col' >
 
-     </div>
+          
+
+      </div>
+
+     
 
       <Footer />
     </div>
