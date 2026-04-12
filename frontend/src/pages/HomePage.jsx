@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../component/Header.jsx'
 import Footer from '../component/Footer.jsx';
+import Card from '../component/Card.jsx';
 import axios from 'axios';
-import Poster from '../component/Poster.jsx';
+
 
 function HomePage() {
 
@@ -44,25 +45,23 @@ function HomePage() {
 
 
   return (
-    //<div className=' items-center grid grid-cols-2 gap-5 pt-10 pl-7'>
-
-     //  {songs.map((song)=>(
-   //     <Card songData={song} key={song._id}  />
-    //   ))};
-
-   //  </div>
+   
     <div className='flex items-center flex-col  min-h-screen  bg-[rgba(26,26,26,1)]'>
       <Header showSearchbar={true} />
        
       <div className=' hero-section mt-10 flex items-center flex-col' >
    
-     <Poster />
+       <div className=' items-center grid grid-cols-2 gap-5 pt-10 pl-7'>
+
+      {songs.map((song)=>(
+       <Card songData={song} key={song._id}  />
+      ))};
+
+    </div>
+
           
 
       </div>
-
-     
-
       <Footer />
     </div>
   )
