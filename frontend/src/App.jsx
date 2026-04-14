@@ -5,6 +5,7 @@ import {Routes, Route} from 'react-router-dom'
 import SongUpload from './pages/SongUpload'
 import HomePage from './pages/HomePage'
 import CreateArtist from './pages/createArtist'
+import SongPlay from './pages/SongPlay'
 
 function App() {
   return (
@@ -16,6 +17,8 @@ function App() {
     <Route path='*' element={<NotFound />} />
     <Route path='/songupload' element={<SongUpload />} />
     <Route path='/createartist' element={<CreateArtist />} />
+    <Route path='/musicplay' element={<SongPlay />} />
+
    </Routes>
     </div>
   )

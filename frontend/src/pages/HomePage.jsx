@@ -53,8 +53,8 @@ function HomePage() {
    
        <div className=' items-center grid grid-cols-2 gap-5 pt-10 pl-7'>
 
-      {songs.map((song)=>(
-       <Card songData={song} key={song._id}  />
+      {songs.map((song,index)=>(
+       <Card songData={song} key={song._id} index={index} songs={songs} />
       ))};
 
     </div>

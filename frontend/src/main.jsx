@@ -4,10 +4,11 @@ import App from './App.jsx'
 import {BrowserRouter} from 'react-router-dom'
 import { Toaster } from 'react-hot-toast'
 import { Bold, Italic } from 'lucide-react'
+import MusicProvider from './Context/MusicProvider.jsx'
 
 createRoot(document.getElementById('root')).render(
   
-    
+  <MusicProvider>
   <BrowserRouter>
   <Toaster containerStyle={{top:'45%'}}  toastOptions={{style:{
     fontSize:20, 
@@ -20,4 +21,5 @@ createRoot(document.getElementById('root')).render(
     }}} />
   <App />
   </BrowserRouter>
+  </MusicProvider >
 )
