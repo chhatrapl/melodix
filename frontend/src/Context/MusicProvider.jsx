@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useRef, useState } from 'react'
 import SongPlay from '../pages/SongPlay';
-
+import axios from 'axios';
 
 export const MusicContext = createContext();
 
@@ -12,6 +12,8 @@ const audioRef = useRef( new Audio())
 const [isPlaying, setIsPlaying] = useState(false);
 const [currentTime, setCurrentTime]=useState();
 const [duration, setDuration] = useState();
+const[likedSongs, setLikedSongs] = useState([]);
+
 
 
 const songPlay = (index, list) =>{
@@ -57,9 +59,37 @@ const handleTimeUpdate=()=>{
 
 const handleProgressChange = (e)=>{
   const newTime = e.target.value;
-  audioRef.current.currentTime;
+  audioRef.current.currentTime = newTime;
   setCurrentTime(newTime);
 }
+
+
+const toggleLike = async (song)=>{
+
+  const songId = song._id || song;
+
+  const isSongLiked = likedSongs.some(s => {
+    const sId = s._id ? String(s._id) : String(s);
+    return sId === String(songId);
+  });
+
+  if(isSongLiked){
+    setLikedSongs(prev => prev.filter(s => {
+      const sId = s._id ? String(s._id) : String(s);
+      return sId !== String(songId);
+    }));
+    
+  }else{
+    setLikedSongs(prev=> [...prev, song]);
+  }
+
+    try {
+       await axios.post(`http://localhost:3000/api/v1/likes/likesong/${songId}`)
+    } catch (error) {
+        console.log("like toggle fetch err :-",error);
+    }
+}
+
 
 useEffect(()=>{
   const audio = audioRef.current;
@@ -73,10 +103,26 @@ useEffect(()=>{
 
 },[]);
 
+ useEffect(()=>{
+  const fetchedLikedSongs =  async ()=>{
+   try {
+     const res = await axios.get('http://localhost:3000/api/v1/likes/likedsongs');
+     
+     console.log("liked Songs :- ", res.data.likedSongs);
+ 
+     setLikedSongs(res.data.likedSongs)
+   } catch (error) {
+    console.log('fetch err', error)
+   }          
+  }
+  fetchedLikedSongs();
+ },[])
 
 
   return (
-    <MusicContext.Provider value={{currentSongIndex,songList,songPlay,nextSong,prevSong,audioRef,togglePlay,isPlaying,currentTime,duration,handleProgressChange}}>
+    <MusicContext.Provider value={{currentSongIndex,songList,songPlay,nextSong,prevSong,audioRef,togglePlay,isPlaying,currentTime,duration,handleProgressChange,
+                                   toggleLike, likedSongs
+    }}>
       {children}
     </MusicContext.Provider>
   )

@@ -4,15 +4,20 @@ import MusicPoster from '../component/MusicPoster.jsx'
 import SongDetails from '../component/SongDetails.jsx'
 import { useContext } from 'react'
 import { MusicContext } from '../Context/MusicProvider.jsx'
-import { SkipBack, SkipForward,Pause, Play} from 'lucide-react'
+import { SkipBack, SkipForward,Pause, Play, Heart} from 'lucide-react'
 
 function SongPlay() {
 
-   const {currentSongIndex, songList, songPlay, prevSong, nextSong,togglePlay,isPlaying, currentTime, duration, handleProgressChange} = useContext(MusicContext)
+   const {currentSongIndex, songList, songPlay, prevSong, nextSong,togglePlay,isPlaying, currentTime, duration, handleProgressChange,toggleLike, likedSongs} = useContext(MusicContext)
    if (currentSongIndex === null) return <h1>No Song Playing</h1>;
+ 
+    // console.log("liked songs in music player :- ",likedSongs);
 
    const currentSong = songList[currentSongIndex];
   // console.log(currentSong);
+
+  const  isSongLiked =  likedSongs.some(song => String(song._id) === String(currentSong?._id));
+  //console.log("isSongLiked:-",isSongLiked);
 
 
   const formatTime = (time) => {
@@ -40,6 +45,18 @@ function SongPlay() {
   <div className="flex justify-between text-xs text-gray-400 mb-1">
     {/* Time formatting function niche hai */}
     <span>{formatTime(currentTime)}</span>
+
+     <button onClick={()=> toggleLike(currentSong)}>
+      
+
+      {isSongLiked ? (
+    <span className="text-2xl"><Heart size={20} color="white" fill='white' /></span> 
+  ) : (
+    <span className="text-2xl ml-1"><Heart size={20} color="white" /></span>
+  )}
+
+     </button>
+
     <span>{formatTime(duration)}</span>
   </div>
   
@@ -79,6 +96,9 @@ function SongPlay() {
   >
     <span className="material-icons"><SkipForward /></span>
   </button>
+
+    
+        
 </div>
 
     

@@ -3,6 +3,7 @@ import corse from 'cors'
 import authRouter from './routes/authRoute.js';
 import songRouter from './routes/songRoute.js';
 import artistRouter from './routes/artistRoute.js';
+import likeRouter from './routes/likeRoute.js';
 
 const app = express();
 
@@ -23,6 +24,8 @@ app.use('/api/v1/song',songRouter);
 //artist routes
 app.use('/api/v1/artist',artistRouter);
 
+
+app.use('/api/v1/likes',likeRouter);
 
 
 

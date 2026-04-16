@@ -3,17 +3,17 @@ import mongoose from 'mongoose';
 const likeSchema = new mongoose.Schema({
     user:{
         type:mongoose.Schema.Types.ObjectId,
-        ref:user,
+        ref:"User",
         required:true
     },
     song:{
         type:mongoose.Schema.Types.ObjectId,
-        ref:song,
+        ref:"Song",
         required:true
     }
 },{timestamps:true});
 
-likeSchmea.index({user:1, song:1},{unique:true});
+likeSchema.index({user:1, song:1},{unique:true});
 
 const Like = mongoose.model('Like',likeSchema);
 
