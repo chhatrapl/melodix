@@ -3,6 +3,7 @@ import Header from '../component/Header.jsx'
 import Footer from '../component/Footer.jsx';
 import Card from '../component/Card.jsx';
 import axios from 'axios';
+import API_URL from '../Config/Api.js';
 
 
 function HomePage() {
@@ -13,7 +14,7 @@ function HomePage() {
 
     const fetchSong = async ()=>{
        try {
-        const res = await axios.get(`http://localhost:3000/api/v1/song/allSongs?page=${page}&limit=10`);
+        const res = await axios.get(`${API_URL}/api/v1/song/allSongs?page=${page}&limit=10`);
         const songData = res.data.data.docs;
         console.log(res.data);
         setSongs((Prev => [...Prev, ...songData]));
@@ -47,8 +48,7 @@ function HomePage() {
   return (
    
     <div className='flex items-center flex-col  min-h-screen  bg-[rgba(26,26,26,1)]'>
-      <Header showSearchbar={true} />
-       
+      
       <div className=' hero-section mt-10 flex items-center flex-col' >
    
        <div className=' items-center grid grid-cols-2 gap-5 pt-10 pl-7'>
@@ -62,7 +62,7 @@ function HomePage() {
           
 
       </div>
-      <Footer />
+     
     </div>
   )
 }

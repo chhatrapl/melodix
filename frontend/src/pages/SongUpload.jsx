@@ -40,7 +40,7 @@ function SongUpload() {
 
 
 
-    <Header />
+   
    <div className='bg-black h-screen flex items-center justify-center'>
    <form action="" className='space-y-5 mt-10'
    onSubmit={async (e)=>{
@@ -129,7 +129,7 @@ function SongUpload() {
     </form>    
     
      </div>
-   <Footer />
+  
 
     </div>
   )

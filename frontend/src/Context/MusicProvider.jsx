@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useRef, useState } from 'react'
 import SongPlay from '../pages/SongPlay';
 import axios from 'axios';
+import API_URL from '../Config/Api';
 
 export const MusicContext = createContext();
 
@@ -84,7 +85,7 @@ const toggleLike = async (song)=>{
   }
 
     try {
-       await axios.post(`http://localhost:3000/api/v1/likes/likesong/${songId}`)
+       await axios.post(`${API_URL}/api/v1/likes/likesong/${songId}`)
     } catch (error) {
         console.log("like toggle fetch err :-",error);
     }
@@ -106,7 +107,7 @@ useEffect(()=>{
  useEffect(()=>{
   const fetchedLikedSongs =  async ()=>{
    try {
-     const res = await axios.get('http://localhost:3000/api/v1/likes/likedsongs');
+     const res = await axios.get(`${API_URL}/api/v1/likes/likedsongs`);
      
      console.log("liked Songs :- ", res.data.likedSongs);
  

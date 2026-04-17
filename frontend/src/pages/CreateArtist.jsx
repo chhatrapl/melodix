@@ -29,7 +29,7 @@ function CreateArtist() {
   </div>
 )}
     
-    <Header />
+  
    <div className='bg-black h-screen flex items-center justify-center'>
 
    <form action="" className='space-y-5 mt-10'
@@ -92,7 +92,7 @@ function CreateArtist() {
     </form>    
     
      </div>
-   <Footer />
+
 
     </div>
   )

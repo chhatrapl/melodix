@@ -5,6 +5,7 @@ import {BrowserRouter} from 'react-router-dom'
 import { Toaster } from 'react-hot-toast'
 import { Bold, Italic } from 'lucide-react'
 import MusicProvider from './Context/MusicProvider.jsx'
+import './index.css'
 
 createRoot(document.getElementById('root')).render(
   

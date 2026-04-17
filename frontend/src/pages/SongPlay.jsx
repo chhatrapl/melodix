@@ -30,7 +30,7 @@ function SongPlay() {
 
   return (
     <div className='flex flex-col  items-center justify-center min-h-screen '>
-   <Header />
+  
 
    <div className="hero relative flex flex-col items-center justify-center grow w-full">
     <img src={currentSong.coverImage} alt="" className='absolute w-full h-full object-cover -z-10 blur-[3px] '/>
@@ -104,7 +104,7 @@ function SongPlay() {
     
    </div>
 
-   <Footer />
+   
     </div>
   )
 }

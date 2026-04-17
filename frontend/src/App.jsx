@@ -7,21 +7,28 @@ import HomePage from './pages/HomePage'
 import CreateArtist from './pages/createArtist'
 import SongPlay from './pages/SongPlay'
 import LikedSongs from './pages/LikedSongs'
+import  Layout  from './component/Layout'
 
 function App() {
   return (
-    <div className=' app flex items-center justify-center'>
+    <div className=' app '>
+      
    <Routes>
     <Route path='/signup' element={<SignUp />} /> 
-    <Route path='/login' element={<LogIn />} /> 
+    <Route path='/login' element={<LogIn />} />
+   
+
+    <Route element={<Layout />}>
+     <Route path='/songupload' element={<SongUpload />} /> 
+    <Route path='/createartist' element={<CreateArtist />} />
     <Route path='/' element={<HomePage />} /> 
     <Route path='*' element={<NotFound />} />
-    <Route path='/songupload' element={<SongUpload />} />
-    <Route path='/createartist' element={<CreateArtist />} />
     <Route path='/musicplay' element={<SongPlay />} />
     <Route path='/my-like' element={<LikedSongs />} />
+    </Route>
 
    </Routes>
+   
     </div>
   )
 }
