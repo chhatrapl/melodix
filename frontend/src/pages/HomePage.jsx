@@ -18,7 +18,7 @@ function HomePage() {
         const songData = res.data.data.docs;
         console.log(res.data);
         setSongs((Prev => [...Prev, ...songData]));
-        if(!res.data.data.hashNextPage){
+        if(!res.data.data.hasNextPage){
           setMore(false);
         }
        } catch (error) {
@@ -32,8 +32,10 @@ function HomePage() {
   
     const handleScroll = ()=>{
       if( window.innerHeight + document.documentElement.scrollTop + 1 >= document.documentElement.scrollHeight ){
-        if(hashMore){
+        if(hasMore){
           setPage((prevPage)=> prevPage +1);
+        }else{
+          console.log("no more")
         }
       }
     };

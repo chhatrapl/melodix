@@ -5,19 +5,28 @@ import SongDetails from '../component/SongDetails.jsx'
 import { useContext } from 'react'
 import { MusicContext } from '../Context/MusicProvider.jsx'
 import { SkipBack, SkipForward,Pause, Play, Heart} from 'lucide-react'
+import { useLikedSongs,useToggleLike } from '../hooks/useLikedSongs.js'
 
 function SongPlay() {
 
-   const {currentSongIndex, songList, songPlay, prevSong, nextSong,togglePlay,isPlaying, currentTime, duration, handleProgressChange,toggleLike, likedSongs} = useContext(MusicContext)
-   if (currentSongIndex === null) return <h1>No Song Playing</h1>;
- 
-    // console.log("liked songs in music player :- ",likedSongs);
+   const {currentSongIndex, songList, songPlay, prevSong, nextSong,togglePlay,isPlaying, currentTime, duration, handleProgressChange,} = useContext(MusicContext)
+    const currentSong = songList[currentSongIndex];
+      const { data: likedSongs = [] } = useLikedSongs();
+       const { mutate: toggleLike } = useToggleLike();
 
-   const currentSong = songList[currentSongIndex];
+
+   if (currentSongIndex === null) return <h1>No Song Playing</h1>;
+
+   const isSongLiked = likedSongs.some(song => 
+    String(song._id) === String(currentSong?._id)
+  )
+
+
+  
   // console.log(currentSong);
 
-  const  isSongLiked =  likedSongs.some(song => String(song._id) === String(currentSong?._id));
-  //console.log("isSongLiked:-",isSongLiked);
+ 
+ 
 
 
   const formatTime = (time) => {
@@ -46,7 +55,7 @@ function SongPlay() {
     {/* Time formatting function niche hai */}
     <span>{formatTime(currentTime)}</span>
 
-     <button onClick={()=> toggleLike(currentSong)}>
+     <button onClick={()=> toggleLike(currentSong._id)}>
       
 
       {isSongLiked ? (

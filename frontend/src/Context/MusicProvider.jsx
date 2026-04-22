@@ -104,20 +104,20 @@ useEffect(()=>{
 
 },[]);
 
- useEffect(()=>{
-  const fetchedLikedSongs =  async ()=>{
-   try {
-     const res = await axios.get(`${API_URL}/api/v1/likes/likedsongs`);
+//  useEffect(()=>{
+//   const fetchedLikedSongs =  async ()=>{
+//    try {
+//      const res = await axios.get(`${API_URL}/api/v1/likes/likedsongs`);
      
-     console.log("liked Songs :- ", res.data.likedSongs);
+//      console.log("liked Songs :- ", res.data.likedSongs);
  
-     setLikedSongs(res.data.likedSongs)
-   } catch (error) {
-    console.log('fetch err', error)
-   }          
-  }
-  fetchedLikedSongs();
- },[])
+//      setLikedSongs(res.data.likedSongs)
+//    } catch (error) {
+//     console.log('fetch err', error)
+//    }          
+//   }
+//   fetchedLikedSongs();
+//  },[])
 
 
   return (
