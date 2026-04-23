@@ -150,7 +150,7 @@ try {
   const result = await Song.paginate({},options);
 
 
-     console.log('data:-',result);
+    //  console.log('data:-',result);
     return res.status(200).json({success:true, message:"all song get", data:result})
 } catch (error) {
   console.error(error.message);

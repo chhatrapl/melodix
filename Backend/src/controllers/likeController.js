@@ -37,10 +37,10 @@ try {
     
       const userLikes = await Like.find({user:userId}).populate("song");
 
-      console.log("userLikes:-", userLikes);
+    
 
       const likedSongs = userLikes.map((like)=>like.song);
-      console.log("likedSongs:-",likedSongs);
+    
     
       return res.status(200).json({success:true, message:"get all liked likedSogs",likedSongs})
 
