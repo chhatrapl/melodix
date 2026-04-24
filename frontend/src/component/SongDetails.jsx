@@ -1,9 +1,10 @@
 import React, { useContext } from 'react'
-import { MusicContext } from '../Context/MusicProvider'
+import { usePlayerStore } from '../store/playerStore';
 
 function SongDetails() {
-  const {currentSongIndex, songList}=useContext(MusicContext);
-  const currentSong = songList[currentSongIndex];
+
+  const {currentSong,}=usePlayerStore();
+  
   return (
     <div  className=' h-100 w-100 flex flex-col items-center justify-center rounded-2xl text-white cursor-pointer'>
       <div>

@@ -2,28 +2,34 @@ import React, { createContext, useEffect, useRef, useState } from 'react'
 import SongPlay from '../pages/SongPlay';
 import axios from 'axios';
 import API_URL from '../Config/Api';
-
+import { usePlayerStore } from '../store/playerStore';
 export const MusicContext = createContext();
+
+
 
 function MusicProvider({children}) {
 
-const [currentSongIndex, setCurrentSongIndex] = useState(null);
-const [songList, setSongList] = useState([]) 
+ const {setCurrentSong, setIsPlaying, currentSong,currentSongIndex,songList}=usePlayerStore();
+
+
 const audioRef = useRef( new Audio())
-const [isPlaying, setIsPlaying] = useState(false);
 const [currentTime, setCurrentTime]=useState();
 const [duration, setDuration] = useState();
 const[likedSongs, setLikedSongs] = useState([]);
 
 
 
-const songPlay = (index, list) =>{
-     setSongList(list);
-     setCurrentSongIndex(index)
-
-     audioRef.current.src = list[index].songUrl;
-     audioRef.current.play();
+const songPlay = async (index, list) =>{
+   
+     setCurrentSong(list[index], index, list)
      setIsPlaying(true);
+     audioRef.current.src = list[index].songUrl;
+   try {
+      await audioRef.current.play();
+   } catch (error) {
+    
+   }
+    
 };
 
 const nextSong = ()=>{
@@ -119,9 +125,17 @@ useEffect(()=>{
 //   fetchedLikedSongs();
 //  },[])
 
+useEffect(()=>{
+  if(currentSong){
+     audioRef.current.src = currentSong.songUrl;
+     audioRef.current.play();
+       setIsPlaying(true);
+  }
+},[currentSong])
+
 
   return (
-    <MusicContext.Provider value={{currentSongIndex,songList,songPlay,nextSong,prevSong,audioRef,togglePlay,isPlaying,currentTime,duration,handleProgressChange,
+    <MusicContext.Provider value={{currentSongIndex,songList,songPlay,nextSong,prevSong,audioRef,togglePlay,currentTime,duration,handleProgressChange,
                                    toggleLike, likedSongs
     }}>
       {children}

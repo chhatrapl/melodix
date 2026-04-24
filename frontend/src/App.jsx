@@ -23,11 +23,14 @@ function App() {
     <Route path='/createartist' element={<CreateArtist />} />
     <Route path='/' element={<HomePage />} /> 
     <Route path='*' element={<NotFound />} />
-    <Route path='/musicplay' element={<SongPlay />} />
+    <Route path='/musicplay/:id' element={<SongPlay />} />
     <Route path='/my-like' element={<LikedSongs />} />
+    <Route path='my-likes/musicplay/:id' element={<SongPlay />} />
+   
     </Route>
 
    </Routes>
+    
    
     </div>
   )

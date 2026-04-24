@@ -6,13 +6,20 @@ import { useContext } from 'react'
 import { MusicContext } from '../Context/MusicProvider.jsx'
 import { SkipBack, SkipForward,Pause, Play, Heart} from 'lucide-react'
 import { useLikedSongs,useToggleLike } from '../hooks/useLikedSongs.js'
+import { usePlayerStore } from '../store/playerStore.js'
 
 function SongPlay() {
 
-   const {currentSongIndex, songList, songPlay, prevSong, nextSong,togglePlay,isPlaying, currentTime, duration, handleProgressChange,} = useContext(MusicContext)
-    const currentSong = songList[currentSongIndex];
+   const { songPlay, prevSong, nextSong,togglePlay, currentTime, duration, handleProgressChange,} = useContext(MusicContext)
+
+     const {isPlaying,setCurrentSong,songList,currentSong,currentSongIndex}=usePlayerStore();
+
+  
       const { data: likedSongs = [] } = useLikedSongs();
        const { mutate: toggleLike } = useToggleLike();
+
+
+  
 
 
    if (currentSongIndex === null) return <h1>No Song Playing</h1>;
@@ -23,13 +30,7 @@ function SongPlay() {
 
 
   
-  // console.log(currentSong);
-
- 
- 
-
-
-  const formatTime = (time) => {
+     const formatTime = (time) => {
   if (isNaN(time)) return "0:00";
   const minutes = Math.floor(time / 60);
   const seconds = Math.floor(time % 60);
@@ -91,7 +92,7 @@ function SongPlay() {
   <button className="w-14 h-14 flex items-center justify-center rounded-full bg-[#1a1a1a] shadow-[-5px_-5px_10px_rgba(255,255,255,0.05),5px_5px_10px_rgba(0,0,0,0.5)] active:shadow-inner text-amber-50 font-bold"
   onClick={togglePlay}
   >
-    {isPlaying ? (
+    {isPlaying? (
     <span className="text-2xl"><Pause /></span> 
   ) : (
     <span className="text-2xl ml-1"><Play /></span>
