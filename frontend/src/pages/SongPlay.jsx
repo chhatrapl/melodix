@@ -7,9 +7,13 @@ import { MusicContext } from '../Context/MusicProvider.jsx'
 import { SkipBack, SkipForward,Pause, Play, Heart} from 'lucide-react'
 import { useLikedSongs,useToggleLike } from '../hooks/useLikedSongs.js'
 import { usePlayerStore } from '../store/playerStore.js'
+import { useNavigate } from 'react-router-dom';
+import API_URL from '../Config/Api.js'
 
 function SongPlay() {
 
+    const navigate= useNavigate();
+    
    const { songPlay, prevSong, nextSong,togglePlay, currentTime, duration, handleProgressChange,} = useContext(MusicContext)
 
      const {isPlaying,setCurrentSong,songList,currentSong,currentSongIndex}=usePlayerStore();
@@ -22,7 +26,7 @@ function SongPlay() {
   
 
 
-   if (currentSongIndex === null) return <h1>No Song Playing</h1>;
+   if (currentSongIndex === null) return  navigate(`/`);
 
    const isSongLiked = likedSongs.some(song => 
     String(song._id) === String(currentSong?._id)
@@ -69,15 +73,27 @@ function SongPlay() {
 
     <span>{formatTime(duration)}</span>
   </div>
+
+
+  <audio 
+   key={currentSong._id}
+   controls
+   autoPlay
+  >
+    <source src={`${API_URL}/api/v1/song/streamSong/${currentSong._id}`} 
+     type='audio/mp3'
+    />
+  </audio>
+
   
-  <input
+  {/* <input
     type="range"
     min="0"
     max={duration || 0}
     value={currentTime}
     onChange={handleProgressChange}
     className="w-full h-3 bg-gray-600 rounded-lg appearance-none cursor-pointer accent-amber-50"
-  />
+  /> */}
 </div>
 
       
@@ -89,7 +105,7 @@ function SongPlay() {
     <span className="material-icons"><SkipBack /></span>
   </button>
 
-  <button className="w-14 h-14 flex items-center justify-center rounded-full bg-[#1a1a1a] shadow-[-5px_-5px_10px_rgba(255,255,255,0.05),5px_5px_10px_rgba(0,0,0,0.5)] active:shadow-inner text-amber-50 font-bold"
+  {/* <button className="w-14 h-14 flex items-center justify-center rounded-full bg-[#1a1a1a] shadow-[-5px_-5px_10px_rgba(255,255,255,0.05),5px_5px_10px_rgba(0,0,0,0.5)] active:shadow-inner text-amber-50 font-bold"
   onClick={togglePlay}
   >
     {isPlaying? (
@@ -97,7 +113,7 @@ function SongPlay() {
   ) : (
     <span className="text-2xl ml-1"><Play /></span>
   )}
-  </button>
+  </button> */}
 
 
   

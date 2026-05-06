@@ -32,6 +32,17 @@ const songPlay = async (index, list) =>{
     
 };
 
+
+const songClose= () => {
+  if (audioRef.current) {
+    audioRef.current.pause(); 
+    setIsPlaying(false);
+   localStorage.removeItem("player-storage")     
+  }
+};
+
+
+
 const nextSong = ()=>{
   if(currentSongIndex < songList.length -1){
     songPlay(currentSongIndex+1, songList)
@@ -56,19 +67,19 @@ const togglePlay = ()=>{
 }
 
 
-const handleLoadedMetaData = ()=>{
-  setDuration(audioRef.current.duration);
-};
+// const handleLoadedMetaData = ()=>{
+//   setDuration(audioRef.current.duration);
+// };
 
-const handleTimeUpdate=()=>{
-  setCurrentTime(audioRef.current.currentTime);
-};
+// const handleTimeUpdate=()=>{
+//   setCurrentTime(audioRef.current.currentTime);
+// };
 
-const handleProgressChange = (e)=>{
-  const newTime = e.target.value;
-  audioRef.current.currentTime = newTime;
-  setCurrentTime(newTime);
-}
+// const handleProgressChange = (e)=>{
+//   const newTime = e.target.value;
+//   audioRef.current.currentTime = newTime;
+//   setCurrentTime(newTime);
+// }
 
 
 const toggleLike = async (song)=>{
@@ -98,17 +109,17 @@ const toggleLike = async (song)=>{
 }
 
 
-useEffect(()=>{
-  const audio = audioRef.current;
-  audio.addEventListener('timeupdate', handleTimeUpdate);
-  audio.addEventListener('loadedmetadata',handleLoadedMetaData);
+// useEffect(()=>{
+//   const audio = audioRef.current;
+//   audio.addEventListener('timeupdate', handleTimeUpdate);
+//   audio.addEventListener('loadedmetadata',handleLoadedMetaData);
  
-  return ()=>{
-    audio.removeEventLister('timeupdate', handleTimeUpdate);
-    audio.removeEventListener('loadedmetadata',handleLoadedMetaData);
-  }
+//   return ()=>{
+//     audio.removeEventLister('timeupdate', handleTimeUpdate);
+//     audio.removeEventListener('loadedmetadata',handleLoadedMetaData);
+//   }
 
-},[]);
+// },[]);
 
 //  useEffect(()=>{
 //   const fetchedLikedSongs =  async ()=>{
@@ -125,17 +136,20 @@ useEffect(()=>{
 //   fetchedLikedSongs();
 //  },[])
 
+
+
+
 useEffect(()=>{
   if(currentSong){
      audioRef.current.src = currentSong.songUrl;
-     audioRef.current.play();
+   //  audioRef.current.play();
        setIsPlaying(true);
   }
 },[currentSong])
 
 
   return (
-    <MusicContext.Provider value={{currentSongIndex,songList,songPlay,nextSong,prevSong,audioRef,togglePlay,currentTime,duration,handleProgressChange,
+    <MusicContext.Provider value={{currentSongIndex,songClose,songPlay,nextSong,prevSong,audioRef,togglePlay,currentTime,duration,
                                    toggleLike, likedSongs
     }}>
       {children}

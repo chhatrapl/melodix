@@ -1,5 +1,5 @@
 import express from "express";
-import { deleteSong, songUpload, getAllSongs, playSong } from "../controllers/songControllers.js";
+import { deleteSong, songUpload, getAllSongs, playSong, streamSong } from "../controllers/songControllers.js";
 import { upload } from "../middlewares/cloudinary.js";
 import { likeToggle } from "../controllers/likeController.js";
 
@@ -17,6 +17,9 @@ router.delete('/deletesong/:id', deleteSong);
 
 router.get('/allSongs', getAllSongs);
 
-router.get('/playsong/:id',playSong)
+router.get('/playsong/:id',playSong);
+
+
+router.get('/streamSong/:id',streamSong);
 
 export default router;

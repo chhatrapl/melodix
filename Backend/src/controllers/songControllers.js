@@ -1,7 +1,8 @@
 import Song from "../model/songModel.js";
 import Artist from "../model/artistModel.js";
 import { v2 as cloudinary } from 'cloudinary';
-import fs from "fs";
+import fs, { createReadStream } from "fs";
+import axios from "axios";
 
 
 
@@ -180,3 +181,68 @@ export const playSong = async (req, res)=>{
   return res.json(500).json({sucess:false, message:"somting went wrong!"})
   }
 };
+
+
+export const streamSong = async (req, res)=>{
+try {
+    const songId = req.params.id;
+    console.log(songId);
+    if(!songId){
+       return res.status(404).json({message:"Song not Found!"});
+    }
+  
+  
+     const song = await Song.findById(songId);
+
+     console.log("song :- ", song)
+  
+     if(!song){
+      return res.status(404).json({message:"thers no song with this id"});
+     };
+  
+    const cloudinaryUrl = song.songUrl;
+    console.log("cloudinaryUrl:-", cloudinaryUrl );
+
+ const range = req.headers.range;
+
+   if(!range){
+
+     const response = await axios({
+      method:'get',
+      url:cloudinaryUrl,
+      responseType:'stream',
+      })
+
+     res.writeHead(200,{
+      "Content-Type":'audio/mp3',
+      "Content-Length":response.headers["content-length"]
+     })
+      return response.data.pipe(res);
+   };
+
+     const response = await axios({
+      method:'get',
+      url:cloudinaryUrl,
+      responseType:'stream',
+      headers:{
+        Range:range
+      }
+      });
+
+
+      res.writeHead(206, {
+            "Content-Range": response.headers["content-range"],
+            "Accept-Ranges": "bytes",
+            "Content-Length": response.headers["content-length"],
+            "Content-Type": "audio/mp3",
+        });
+
+        response.data.pipe(res);
+  
+  
+} catch (error) {
+  console.error(error)
+  return res.status(500).json({success:false, message:"somthing went wrong"});
+}
+
+}

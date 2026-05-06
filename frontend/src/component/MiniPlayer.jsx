@@ -5,7 +5,7 @@ import { MusicContext } from "../Context/MusicProvider.jsx";
 
 export const  MiniPlayer = ({ audioRef }) => {
   const { currentSong, isPlaying, setIsPlaying, stopPlayer } = usePlayerStore();
-  const {togglePlay}= useContext(MusicContext);
+  const {togglePlay,songClose}= useContext(MusicContext);
 
   if (!currentSong) return null
 
@@ -44,6 +44,10 @@ export const  MiniPlayer = ({ audioRef }) => {
           </svg>
         )}
       </button>
+      
+      <button 
+     
+      >❌</button>
 
     </div>
   )
